@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const Tunnel = require("../model/Tunnel")
 
-router.post("/add",async (req,res)=>{
+router.post("/",async (req,res)=>{
     const containerName = req.body.container_name;
     const tunnelId = req.body.tunnel_id;
     try {
@@ -17,7 +17,7 @@ router.post("/add",async (req,res)=>{
     }
 })
 
-router.get("/get",async(req,res)=>{
+router.get("/",async(req,res)=>{
     containerName = req.params.name
     try {
         const tunnelInfo = await Tunnel.findOne({container:containerName})
@@ -29,3 +29,5 @@ router.get("/get",async(req,res)=>{
     }
     
 })
+
+module.exports = router;

@@ -1,6 +1,6 @@
-import { Schema, model } from "mongoose"
+const mongoose = require("mongoose")
 
-const tunnelSchema = Schema({
+const tunnelSchema = mongoose.Schema({
     container:{
         type: String,
         required : true
@@ -10,4 +10,4 @@ const tunnelSchema = Schema({
         required: true
     }
 })
-export default model("Tunnel",tunnelSchema)
+module.exports = mongoose.model("Tunnel",tunnelSchema)
