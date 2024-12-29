@@ -17,3 +17,15 @@ router.post("/add",async (req,res)=>{
     }
 })
 
+router.get("/get",async(req,res)=>{
+    containerName = req.params.name
+    try {
+        const tunnelInfo = await Tunnel.findOne({container:containerName})
+        if(tunnelInfo){
+            res.status(201).json({message:"Found",tunnelInfo:tunnelInfo});
+        }
+    } catch (error) {
+        res.status(404).json(error)
+    }
+    
+})
