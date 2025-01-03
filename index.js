@@ -20,10 +20,10 @@ try {
 // app.use(cors({ origin: allowedOrigins, credentials: true }));
 
 const tunnlerHandler = require("./routers/tunnel")
-
+app.use(express.json());
 app.use("/api/v1/tunnel",tunnlerHandler)
 
-let PORT = process.env.PORT || 3005;
+let PORT = process.env.PORT || 3001;
 app.listen(PORT,()=>{
     console.log("Tunnel is Started");
     

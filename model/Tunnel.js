@@ -8,6 +8,11 @@ const tunnelSchema = mongoose.Schema({
     tunnelId:{
         type: String,
         required: true
+    },
+    port:{
+        type:Number,
+        required:true
     }
+
 })
 module.exports = mongoose.model("Tunnel",tunnelSchema)

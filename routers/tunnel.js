@@ -1,24 +1,29 @@
 const router = require("express").Router();
 const Tunnel = require("../model/Tunnel")
 
-router.post("/",async (req,res)=>{
-    const containerName = req.body.container_name;
-    const tunnelId = req.body.tunnel_id;
+router.post("/", async (req, res) => {
+    const { container_name, tunnel_id, port } = req.body;
+
+    // Validate request data
+    if (!container_name || !tunnel_id || !port) {
+        return res.status(400).json({ message: "Missing required fields" });
+    }
+
     try {
         const tunnelInfo = new Tunnel({
-            container:containerName,
-            tunnel:tunnelId
-        })
-        const savedTunnelInfo = await tunnelInfo.saved()
-        res.status(201).json({message:"Entry Added",tunnelInfo:savedTunnelInfo});
-    }catch(error){
-        console.log(error)
-        res.status(400).send(error)
+            container: container_name,
+            tunnelId: tunnel_id,
+            port: port,
+        });
+        const savedTunnelInfo = await tunnelInfo.save();
+        res.status(201).json({ message: "Entry added", tunnelInfo: savedTunnelInfo });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Internal server error", error: error.message });
     }
-})
-
-router.get("/",async(req,res)=>{
-    containerName = req.params.name
+});
+router.get("/:name/:application",async(req,res)=>{
+    const containerName = req.params.name
     try {
         const tunnelInfo = await Tunnel.findOne({container:containerName})
         if(tunnelInfo){
